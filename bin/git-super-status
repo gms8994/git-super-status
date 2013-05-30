@@ -12,7 +12,7 @@ use List::Util 'first';
 my $data;
 if (-e $ENV{'HOME'} . '/.gitgot') {
 	$data = LoadFile($ENV{'HOME'} . '/.gitgot');
-	if (ref $data != 'ARRAY') {
+	if (ref $data ne 'ARRAY') {
 		die "Invalid gitgot config";
 	}
 } else {
