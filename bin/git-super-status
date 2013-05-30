@@ -9,7 +9,16 @@ use Term::ANSIColor;
 use Getopt::Long;
 use List::Util 'first';
 
-my $data = LoadFile('/home/frew/.gitgot');
+my $data;
+if (-e $ENV{'HOME'} . '/.gitgot') {
+	$data = LoadFile($ENV{'HOME'} . '/.gitgot');
+	if (ref $data != 'ARRAY') {
+		die "Invalid gitgot config";
+	}
+} else {
+	die "Cannot gitgot config";
+}
+
 our %config = map { split /\n/, s/super-status\.//r, 2 } split /\0/, qx(git config -z --get-regexp super-status);
 
 {
